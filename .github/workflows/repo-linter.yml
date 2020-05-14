@@ -1,0 +1,21 @@
+name: Repository Linter
+
+on:
+  pull_request: 
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install ruby and gem
+        run: sudo apt-get install -y ruby bundler cmake pkg-config git libssl-dev       
+      - name: Install repolinter
+        run: npm install repolinter
+      - name: Install licensee
+        run: sudo gem install licensee
+      - name: Run repolinter
+        run: npx repolinter ./
