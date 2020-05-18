@@ -50,17 +50,13 @@ A module to demonstrate usage of Spring 5, provided as a Karaf feature with Jahi
 Starting from Jahia 8, Spring 5.1.9.RELEASE_1 is provided as a feature. Module developers can now benefit from using those shared libraries in their modules without having to embed Spring jars. This can come handy if one need to benefit from sugar candies provided by Spring Framework.
 
 **Be aware though that by using Spring that way, the Spring Framework will not be managed by the OSGI container.**
-This means that the container will not create any application context on its own for your modules. It would
-thus be the responsability of the module developer to handle the creation of application contexts if necessary
-as well as any interaction between such contexts and the OSGI container.
+This means that the container will not create any application context on its own for your modules. It would thus be the responsability of the module developer to handle the creation of application contexts, as well as handling any interaction between such contexts and the OSGI container.
 
 ## [spring-embedded](./spring-embedded)
 
 A module to demonstrate usage of a custom version of Spring (4.3.27).
 
-If one would need to use any other version of Spring Framework than the ones provided with Jahia, it is possible
-to embed the needed jars in the modules. If several modules were to require those libraries then they the Spring
-jars would have to be embedded in each of those modules though.
+If one need to use any other version of Spring Framework than the ones provided with Jahia, it is still possible to achieve this by embedding that specific version of Spring inside the modules. If several modules were to require those libraries then each of them will have to embed its own version of Spring though.
 
 **Be aware that by using Spring that way, the Spring Framework will not be managed by the OSGI container**, and
-that the same limitations than the one expressed with [Spring Feature](#spring-feature) apply.
+that the same limitations than the one expressed with [spring-feature](#spring-feature) apply.
