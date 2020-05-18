@@ -1,0 +1,15 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+    <!-- A reference to the module manager service provided by Jahia -->
+    <reference id="moduleManager" interface="org.jahia.services.modulemanager.ModuleManager"/>
+
+    <!-- An action provided by this bundle consuming the module manager service -->
+    <service interface="org.jahia.bin.Action">
+        <bean class="org.jahia.samples.module.blueprint.CountBundlesAction">
+            <argument ref="moduleManager"/>
+        </bean>
+    </service>
+
+</blueprint>

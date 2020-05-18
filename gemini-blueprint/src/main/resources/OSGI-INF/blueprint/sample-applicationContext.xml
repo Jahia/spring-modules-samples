@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:osgi="http://www.eclipse.org/gemini/blueprint/schema/blueprint"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.eclipse.org/gemini/blueprint/schema/blueprint http://www.eclipse.org/gemini/blueprint/schema/blueprint/gemini-blueprint.xsd">
+
+    <bean class="org.jahia.samples.module.gemini.SpringInfo"/>
+
+    <bean class="org.jahia.samples.module.gemini.BundleContextInfo">
+        <!--
+            blueprintBundleContext is a reference to the BundleContext of this bundle
+            and is provided by the blueprint container
+            -->
+        <property name="bundleContext" ref="blueprintBundleContext"/>
+    </bean>
+
+    <!-- A reference to the user manager service provided by Jahia -->
+    <osgi:reference id="userManagerService" interface="org.jahia.services.usermanager.JahiaUserManagerService"/>
+
+    <!-- An action provided by this bundle consuming the user manager service -->
+    <osgi:service interface="org.jahia.bin.Action">
+        <bean class="org.jahia.samples.module.gemini.CountUsersAction">
+            <constructor-arg ref="userManagerService"/>
+        </bean>
+    </osgi:service>
+
+</beans>

@@ -1,69 +1,79 @@
-<!--
-    Template for Readmes, see alternatives/examples here: https://github.com/matiassingers/awesome-readme
--->
-<a href="https://www.jahia.com/">
-    <img src="https://www.jahia.com/modules/jahiacom-templates/images/jahia-3x.png" alt="Jahia logo" title="Jahia" align="right" height="60" />
-</a>
+# spring-modules-samples
 
-<!--
-    Project name can either be the full length project name (if there is one) or just the repo name. For example: Digital Experience Manager.
--->
+This repository contains sample modules to demonstrate different possible usage of <a href="https://spring.io/">Spring Framework</a>
+in Jahia.
 
-Sandbox
-======================
+**Please note that direct usage of Spring in Jahia is discouraged.** OSGI does natively support several alternatives to handle
+objects lifecycle and wiring (Declarative Services, Blueprint or CDI).
 
-<!--
-    A one-liner about the project, like a subtitle. For example: Jahia Digital Experience Manager Core
--->
-<p align="center">A sandbox project to try out configuration settings for Jahia repositories</p>
+## Modules
 
-<!--
-    A short technical description (not more than one paragraph) about the project, eventually with tech/tools/framework used.
--->
-<p align="center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rhoncus semper erat, in scelerisque augue imperdiet at. Vestibulum hendrerit leo id neque posuere ultricies nec at diam. Curabitur euismod congue mauris ut aliquet. Curabitur vestibulum nisl eget quam porttitor, sed volutpat arcu fringilla. Mauris at ante gravida, feugiat nisi vel.</p>
+- [OSGI Blueprint](#blueprint)
+- [Gemini Blueprint](#gemini-blueprint)
+- [Spring Feature](#spring-feature)
+- [Spring Embedded](#spring-embedded)
 
-![screenshot](./img/sandbox.jpg)
+## OSGI Blueprint
 
-<!--
-    Open Source badges, see https://shields.io/
--->
+A module to demonstrate usage of OSGI blueprint. Blueprint is part of OSGI specifications
+and provides a declarative way to define beans, services and service references using XML.
+Blueprint has been inspired by Spring Framework and is thus very similar.
 
-## Table of content
+The implementation of OSGI blueprint provided by Jahia is [Gemini Blueprint](#gemini-blueprint)
 
-- [Presentation](#presentation)
-- [Dev Environment](#dev-environment)
-- [Build](#build)
-- [Installation](#installation)
-- [Links](#links)
+**If you are looking for a way to declare OSGI services and wiring through XML files, this is
+the recommended way to do so.**
 
-<!--
-    Not all sections are relevant for all projects. It's up to the team to decide what sections makes most sense. Objective of the readme is to serve as a technical introduction to faciliate onboarding for technical ppl (developers).
-    License and contributions are detailed in their own files, no need to add too many details in the Readme.
-    If the project has technical documentation stored in another location (such as a website), effort should be made not to duplicate content (since it will become outdated at some point). In that case, keep the readme instructions very brief (such as a set of CLI commands).
--->
+However a known limitation regarding usage of OSGI blueprint with Jahia is that services must
+implement an interface, otherwise they cannot be referenced from a bundle using OSGI blueprint.
+The following entry is thus only valid if `com.bar.Foo` is a Java interface.
 
-## Presentation
-<!-- 
-    (Optional) Technical presentation of the project
--->
+```xml
+<reference id="foo" interface="com.bar.Foo"/>
+```
 
-## Dev environment
+Since some services exposed by Jahia do not implement an interface this may prevent you from
+using OSGI Blueprint. As a workaround, you could leverage a specific of the [Gemini Blueprint](#gemini-blueprint)
+implementation, and declare beans using the Spring namespace which is less restrictive in that matter.
 
-<!-- 
-    Instructions to help a new developer get its environment setup and understands contraints and dependencies and run tests
--->
+## Gemini Blueprint
 
-## Build
-<!-- 
-    Instructions to build
--->
+A module to demonstrate usage of Gemini Blueprint. Gemini Blueprint is an implementation
+of OSGI blueprint and is built on top of Spring Framework.
 
-## Installation
-<!-- 
-    Instructions to install
--->
+Gemini Blueprint 1.0.2 is provided with Jahia, and is relying on Spring 3.2.13
 
-## Links
-<!-- 
-    Relevant links
--->
+Because it is build on top of Spring Framework, Gemini Blueprint give you access to the underlying
+application context, events and lifecycle. It does also allow you to use Spring namespaces for XML
+declarations as an alternative to the Blueprint equivalent. In that case, XML definitions are regular
+Spring files with an additional namespace for OSGI specifics. One of the benefit of using the Spring namespaces
+is that it will circonvene the limitation of OSGI Blueprint requiring services to implement an interface.
+However another limitation you may face is that those services without an interface must have a default public
+constructor in order to be instrumented properly by the framework.
+
+**Please be aware that developing modules that relies on specifics of a given implementation of the OSGI Blueprint
+specification is not advised. Forthcoming releases of Jahia may ship with an alternate implementation of the specification.**
+
+## Spring Feature
+
+A module to demonstrate usage of Spring 5, provided as a Karaf feature with Jahia.
+
+Starting from Jahia 8, Spring 5.1.9.RELEASE_1 is provided as a feature. Module developers can now benefit
+from using those shared libraries in their modules without having to embed Spring jars. This can come handy
+if one need to benefit from sugar candies provided by Spring Framework.
+
+**Be aware though that by using Spring that way, the Spring Framework will not be managed by the OSGI container.**
+This means that the container will not create any application context on its own for your modules. It would
+thus be the responsability of the module developer to handle the creation of application contexts if necessary
+as well as any interaction between such contexts and the OSGI container.
+
+## Spring Embedded
+
+A module to demonstrate usage of a custom version of Spring (4.3.27).
+
+If one would need to use any other version of Spring Framework than the ones provided with Jahia, it is possible
+to embed the needed jars in the modules. If several modules were to require those libraries then they the Spring
+jars would have to be embedded in each of those modules though.
+
+**Be aware that by using Spring that way, the Spring Framework will not be managed by the OSGI container**, and
+that the same limitations than the one expressed with [Spring Feature](#spring-feature) apply.
