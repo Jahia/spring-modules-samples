@@ -1,12 +1,10 @@
 # spring-modules-samples
 
-This repository contains sample modules to demonstrate different possible usage of <a href="https://spring.io/">Spring Framework</a>
-in Jahia.
+This repository contains sample modules to demonstrate possible usages of [Spring Framework](https://spring.io/) in Jahia.
 
-**Please note that direct usage of Spring in Jahia is discouraged.** OSGI does natively support several alternatives to handle
-objects lifecycle and wiring (Declarative Services, Blueprint or CDI).
+**Please note that direct usage of Spring in Jahia, to handle objects lifecycle and wiring, is discouraged.** OSGI offers natively several alternatives: [Declarative Services](https://docs.osgi.org/specification/osgi.cmpn/7.0.0/service.component.html), [Blueprint](https://docs.osgi.org/specification/osgi.cmpn/7.0.0/service.blueprint.html) or [CDI](https://docs.osgi.org/specification/osgi.enterprise/7.0.0/service.cdi.html).
 
-## Modules
+## Sample modules
 
 - [blueprint](#blueprint)
 - [gemini-blueprint](#gemini-blueprint)
