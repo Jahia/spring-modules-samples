@@ -16,7 +16,7 @@ natively several alternatives: [Declarative Services](https://docs.osgi.org/spec
 
 ## [blueprint](./blueprint)
 
-A smaple module to demonstrate usage of [OSGI Blueprint](https://docs.osgi.org/specification/osgi.cmpn/7.0.0/service.blueprint.html).
+A sample module to demonstrate usage of [OSGI Blueprint](https://docs.osgi.org/specification/osgi.cmpn/7.0.0/service.blueprint.html).
 Blueprint is part of OSGI specifications and provides a declarative way to define beans, services and service references using
 XML. Blueprint has been inspired by Spring Framework and is thus very similar.
 
