@@ -57,7 +57,7 @@ public final class CountBundlesAction extends Action {
         logger.info("Found {} bundle(s)", bundleCount);
 
         JSONObject json = new JSONObject();
-        json.put("message", String.format("Found %i bundle(s)", bundleCount));
+        json.put("message", String.format("Found %d bundle(s)", bundleCount));
 
         return new ActionResult(HttpServletResponse.SC_OK, null, json);
     }

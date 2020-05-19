@@ -57,7 +57,7 @@ public final class CountUsersAction extends Action {
         logger.info("Found {} user(s)", userCount);
 
         JSONObject json = new JSONObject();
-        json.put("message", String.format("Found %i user(s)", userCount));
+        json.put("message", String.format("Found %d user(s)", userCount));
 
         return new ActionResult(HttpServletResponse.SC_OK, null, json);
     }
